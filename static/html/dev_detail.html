@@ -1,3 +1,59 @@
-<ul>
-  <li>Name: {{ dev_detail.dev.first_name }}</li>
-</ul>
+<form novalidate class="form-horizontal" role="form">
+
+  <div class="form-group">
+    <label for="first_name" class="col-sm-2 control-label">First Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="first_name" ng-model="dev_detail.dev.first_name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="preferred_name" class="col-sm-2 control-label">Preferred Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="preferred_name" ng-model="dev_detail.dev.preferred_name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="last_name" ng-model="dev_detail.dev.last_name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="email" ng-model="dev_detail.dev.email">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="github_username" class="col-sm-2 control-label">GitHub</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="github_username" ng-model="dev_detail.dev.github_username">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="team" class="col-sm-2 control-label">Team</label>
+    <div class="col-sm-10">
+      <select ng-model="dev_detail.dev.team" ng-options="team for team in dev_detail.teams" class="form-control">
+        <option value="">None</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="planning_to_compete" class="col-sm-2 control-label">Planning to Compete</label>
+    <div class="col-sm-10">
+      <input type="checkbox" id="team" ng-model="dev_detail.dev.planning_to_compete">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button ng-click="dev_detail.update(dev_detail.dev)" class="btn btn-default">Sign in</button>
+    </div>
+  </div>
+</form>

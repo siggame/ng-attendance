@@ -44,5 +44,9 @@
     Team.query(function(data) {
       controller.teams = data;
     });
+
+    controller.update = function(dev) {
+      dev.$update();
+    }
   });
 })();
