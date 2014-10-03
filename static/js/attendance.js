@@ -20,7 +20,11 @@
   });
 
   app.factory("Developer", function($resource) {
-    return $resource("/devs/:id");
+    return $resource("/devs/:id", { id: '@id' }, {
+      update: {
+        method: 'PUT'
+      }
+    });
   });
 
   app.factory("Team", function($resource) {
