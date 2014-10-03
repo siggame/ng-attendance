@@ -91,10 +91,7 @@ class Attendance(Base):
 
     @staticmethod
     def latest_for(dev):
-        q = db_session.query(Attendance).join(DeveloperInfo)
-        q = q.filter(Attendance.dev==DeveloperInfo.id)
-        return q.first()
-
+        return dev.attendances[-1] if len(dev.attendances) > 0 else None
 
 def init_db():
     Base.metadata.create_all(bind=engine)
