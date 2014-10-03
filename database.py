@@ -36,6 +36,16 @@ class DeveloperInfo(Base):
         return json.dumps(self.to_dict())
 
     @staticmethod
+    def from_dict(items):
+        d = DeveloperInfo()
+        for column, value in items.iteritems():
+            d[column] = value
+        d.id = DeveloperInfo.next_id()
+        db_session.add(d)
+        db_session.commit()
+        return d
+
+    @staticmethod
     def all():
         return db_session.query(DeveloperInfo).all()
 
