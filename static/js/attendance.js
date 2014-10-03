@@ -23,9 +23,12 @@
     return $resource("/devs/:id");
   });
 
+  app.factory("Team", function($resource) {
+    return $resource("/teams");
+  });
+
   app.controller('DevListController', function(Developer){
     controller = this;
-    console.log("dev list");
     Developer.query(function(data) {
       controller.devs = data;
     });
