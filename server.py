@@ -22,7 +22,7 @@ def shutdown_session(exception=None):
 
 @app.route("/")
 def index():
-    return render_template("names_list.html")
+    return render_template('attendance.html')
 
 
 @app.route("/teams")
