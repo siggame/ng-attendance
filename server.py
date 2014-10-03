@@ -3,7 +3,7 @@ from flask import Flask, render_template, request
 from sqlalchemy import exc
 
 # Local libraries
-from database import DeveloperInfo, db_session, init_db
+from database import Attendance, DeveloperInfo, db_session, init_db
 from spreadsheet import load_roster
 
 # Python libraries
@@ -57,10 +57,31 @@ def dev_detail(dev_id):
         return dev.to_json()
 
     # It must be a PUT
-    dev.update(request.get_json())
+    dev.update(request.get_json() or request.values)
     try:
         db_session.commit()
         return dev.to_json()
+    except exc.IntegrityError, e:
+        return error(e.message)
+
+
+@app.route("/attendance/<dev_id>", methods=['GET', 'POST'])
+def attendance_detail(dev_id):
+    dev = DeveloperInfo.get(dev_id)
+    latest = Attendance.latest_for(dev)
+    if not dev:
+        return json.dumps(None)
+
+    if request.method == 'GET':
+        return latest.to_json() if latest else json.dumps(None)
+
+    # It must be a POST
+    here = (request.get_json() or request.values).get('here', True)
+    latest = Attendance(dev=dev.id, here=here)
+    db_session.add(latest)
+    try:
+        db_session.commit()
+        return latest.to_json()
     except exc.IntegrityError, e:
         return error(e.message)
 
