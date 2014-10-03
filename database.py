@@ -84,14 +84,29 @@ class Attendance(Base):
 
     def to_dict(self):
         return {'datetime': self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
-                'here': self.here}
+                'here': self.here,
+                'dev': self.dev}
 
     def to_json(self):
         return json.dumps(self.to_dict())
 
     @staticmethod
     def latest_for(dev):
-        return dev.attendances[-1] if len(dev.attendances) > 0 else None
+        if len(dev.attendances) > 0:
+            return dev.attendances[-1]
+
+        a = Attendance(dev=dev.id, here=False)
+        db_session.add(a)
+        db_session.commit()
+        return a
+
+    @staticmethod
+    def mark(dev, here=True):
+        latest = Attendance(dev=dev.id, here=here)
+        db_session.add(latest)
+        db_session.commit()
+        return latest
+
 
 def init_db():
     Base.metadata.create_all(bind=engine)
