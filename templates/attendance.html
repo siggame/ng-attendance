@@ -3,20 +3,20 @@
   <head>
     <title>SIG-Game Attendance</title>
     <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/yeti/bootstrap.min.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
 
-  <body ng-controller="NamesController as names_list">
-      <ul>
-        {% for name in names_list %}
-          <li href="{{name.url}}">{{ name.name }}</li>
-        {% endfor %}
-      </ul>
+  <body>
+
+    <div ui-view></div>
 
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.20/angular-resource.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/games_list.js"></script>
+    <script type="text/javascript" src="/static/js/attendance.js"></script>
 
   </body>
+
 </html>
