@@ -57,7 +57,7 @@ def dev_detail(dev_id):
         return dev.to_json()
 
     # It must be a PUT
-    dev.update(request.form)
+    dev.update(request.get_json())
     try:
         db_session.commit()
         return dev.to_json()
