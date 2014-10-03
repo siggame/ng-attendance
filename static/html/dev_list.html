@@ -7,6 +7,6 @@
 
 <ul>
   <li ng-repeat="dev in dev_list.devs | filter:search">
-    <a ui-sref="dev_detail({id: dev.id})">{{ dev.first_name }}</a>
+    <a ui-sref="dev_detail({id: dev.id})">{{ dev.first_name }} {{ dev.last_name }}</a>
   </li>
 </ul>
