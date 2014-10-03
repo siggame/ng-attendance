@@ -50,9 +50,19 @@ def dev_list():
 @app.route("/devs/<dev_id>", methods=['GET', 'PUT'])
 def dev_detail(dev_id):
     dev = DeveloperInfo.get(dev_id)
-    if dev:
+    if not dev:
+        return json.dumps(None)
+
+    if request.method == 'GET':
         return dev.to_json()
-    return json.dumps(None)
+
+    # It must be a PUT
+    dev.update(request.form)
+    try:
+        db_session.commit()
+        return dev.to_json()
+    except exc.IntegrityError, e:
+        return error(e.message)
 
 
 if __name__ == "__main__":
