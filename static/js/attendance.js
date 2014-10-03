@@ -27,6 +27,14 @@
     });
   });
 
+  app.factory("Attendance", function($resource) {
+    return $resource("/attendance/:id", { id: '@dev' }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  });
+
   app.factory("Team", function($resource) {
     return $resource("/teams");
   });
@@ -38,15 +46,30 @@
     });
   });
 
-  app.controller('DevDetailController', function($stateParams, Developer, Team){
+  app.controller('DevDetailController', function($state, $stateParams, Developer, Team, Attendance){
     controller = this;
     controller.dev = Developer.get({id: $stateParams.id});
+    controller.presence = Attendance.get({id: $stateParams.id});
     Team.query(function(data) {
       controller.teams = data;
     });
 
-    controller.update = function(dev) {
+    controller.update = function(form, dev) {
+      form.$setPristine();
       dev.$update();
+    };
+
+    controller.here = function(presence) {
+      presence.here = !presence.here;
+      presence.$update();
+    };
+
+    controller.back = function(form) {
+      if (form.$dirty) {
+        alert("Whoah. Save your changes first.");
+      } else {
+        $state.go('dev_list');
+      }
     }
   });
 })();
