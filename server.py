@@ -54,8 +54,7 @@ if __name__ == "__main__":
 
     if args.roster:
         print "Populating database using spreadsheet..."
-        db_session.add_all(load_roster(db_session, args.roster))
-        db_session.commit()
+        load_roster(db_session, args.roster)
         print "\tDone"
 
     app.run(debug=True)
