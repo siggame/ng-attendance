@@ -35,11 +35,16 @@ class DeveloperInfo(Base):
     def to_json(self):
         return json.dumps(self.to_dict())
 
+    def update(self, items):
+        for column, value in items.iteritems():
+            if column not in ('id', ):
+                setattr(self, column, value)
+        return self
+
     @staticmethod
     def from_dict(items):
         d = DeveloperInfo()
-        for column, value in items.iteritems():
-            setattr(d, column, value)
+        d.update(items)
         d.id = DeveloperInfo.next_id()
         db_session.add(d)
         db_session.commit()
