@@ -65,7 +65,7 @@ def dev_detail(dev_id):
         return error(e.message)
 
 
-@app.route("/attendance/<dev_id>", methods=['GET', 'POST'])
+@app.route("/attendance/<dev_id>", methods=['GET', 'PUT'])
 def attendance_detail(dev_id):
     dev = DeveloperInfo.get(dev_id)
     latest = Attendance.latest_for(dev)
@@ -73,15 +73,12 @@ def attendance_detail(dev_id):
         return json.dumps(None)
 
     if request.method == 'GET':
-        return latest.to_json() if latest else json.dumps(None)
-
-    # It must be a POST
-    here = (request.get_json() or request.values).get('here', True)
-    latest = Attendance(dev=dev.id, here=here)
-    db_session.add(latest)
-    try:
-        db_session.commit()
         return latest.to_json()
+
+    # It must be a PUT
+    here = (request.get_json() or request.values).get('here', True)
+    try:
+        return Attendance.mark(dev, here=here).latest.to_json()
     except exc.IntegrityError, e:
         return error(e.message)
 
