@@ -78,7 +78,7 @@ def attendance_detail(dev_id):
     # It must be a PUT
     here = (request.get_json() or request.values).get('here', True)
     try:
-        return Attendance.mark(dev, here=here).latest.to_json()
+        return Attendance.mark(dev, here=here).to_json()
     except exc.IntegrityError, e:
         return error(e.message)
 
