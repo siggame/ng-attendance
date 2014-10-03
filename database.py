@@ -16,7 +16,7 @@ Base.query = db_session.query_property()
 class DeveloperInfo(Base):
     __tablename__ = 'developerInfo'
 
-    id = Column(Integer, unique=True)
+    id = Column(Integer, unique=True, nullable=False)
     first_name = Column(String)
     last_name = Column(String)
     preferred_name = Column(String)
@@ -25,7 +25,7 @@ class DeveloperInfo(Base):
     team = Column(String)
     planning_to_compete = Column(Boolean)
     added_manually = Column(Boolean, default=True)
-    attendances = relationship("Attendance", backref="dev")
+    attendances = relationship("Attendance")
 
     def __repr__(self):
         fmt = "<Developer(name='{} {}', github_username='{}')>"
@@ -75,6 +75,20 @@ class Attendance(Base):
     id = Column(Integer, primary_key=True)
     dev = Column(Integer, ForeignKey('developerInfo.id'))
     datetime = Column(DateTime, default=datetime.datetime.utcnow)
+    here = Column(Boolean)
+
+    def to_dict(self):
+        return {'datetime': self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
+                'here': self.here}
+
+    def to_json(self):
+        return json.dumps(self.to_dict())
+
+    @staticmethod
+    def latest_for(dev):
+        q = db_session.query(Attendance).join(DeveloperInfo)
+        q = q.filter(Attendance.dev==DeveloperInfo.id)
+        return q.first()
 
 
 def init_db():
