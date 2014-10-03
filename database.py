@@ -30,7 +30,7 @@ class DeveloperInfo(Base):
         return fmt.format(self.first_name, self.last_name, self.github_username)
 
     def to_dict(self):
-        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}
+        return {c.name: c.type.python_type(getattr(self, c.name)) for c in self.__table__.columns}
 
     def to_json(self):
         return json.dumps(self.to_dict())
