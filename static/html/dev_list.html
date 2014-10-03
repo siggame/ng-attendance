@@ -5,8 +5,11 @@
   </div>
 </form>
 
-<ul>
-  <li ng-repeat="dev in dev_list.devs | filter:search">
-    <a ui-sref="dev_detail({id: dev.id})">{{ dev.first_name }} {{ dev.last_name }}</a>
-  </li>
-</ul>
+
+<table class="table table-striped">
+  <tr ng-repeat="dev in dev_list.devs | filter:search">
+    <td ng-class="dev.here ? 'success' : 'danger'">
+      <a ui-sref="dev_detail({id: dev.id})">{{ dev.first_name }} {{ dev.last_name }}</a>
+    </td>
+  </tr>
+</table>
