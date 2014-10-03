@@ -38,8 +38,11 @@
     });
   });
 
-  app.controller('DevDetailController', function($stateParams, Developer){
-    console.log($stateParams);
-    this.dev = Developer.get({id: $stateParams.id});
+  app.controller('DevDetailController', function($stateParams, Developer, Team){
+    controller = this;
+    controller.dev = Developer.get({id: $stateParams.id});
+    Team.query(function(data) {
+      controller.teams = data;
+    });
   });
 })();
