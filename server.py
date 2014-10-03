@@ -1,7 +1,5 @@
 # Framework libraries
-from flask import Flask
-from flask import render_template
-from flask import request
+from flask import Flask, render_template, request
 
 # Local libraries
 from database import DeveloperInfo, db_session, init_db
@@ -20,23 +18,23 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
     return render_template('attendance.html')
 
 
-@app.route("/teams")
+@app.route("/teams", methods=['GET'])
 def teams_list():
     teams = ['Arena', 'Server/Client', 'Testing', 'Visualizer', 'Web']
     return json.dumps(teams)
 
 
-@app.route("/devs")
+@app.route("/devs", methods=['GET', 'POST'])
 def dev_list():
     return json.dumps([x.to_dict() for x in DeveloperInfo.all()])
 
 
-@app.route("/devs/<dev_id>")
+@app.route("/devs/<dev_id>", methods=['GET', 'PUT'])
 def dev_detail(dev_id):
     dev = DeveloperInfo.get(dev_id)
     if dev:
