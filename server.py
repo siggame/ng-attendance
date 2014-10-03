@@ -1,5 +1,6 @@
 # Framework libraries
 from flask import Flask, render_template, request
+from sqlalchemy import exc
 
 # Local libraries
 from database import DeveloperInfo, db_session, init_db
@@ -11,6 +12,11 @@ import json
 
 
 app = Flask(__name__)
+
+
+def error(msg, code=400):
+    data = json.dumps({'msg': msg, 'error': code})
+    return data, code
 
 
 @app.teardown_appcontext
@@ -31,7 +37,14 @@ def teams_list():
 
 @app.route("/devs", methods=['GET', 'POST'])
 def dev_list():
-    return json.dumps([x.to_dict() for x in DeveloperInfo.all()])
+    if request.method == 'GET':
+        return json.dumps([x.to_dict() for x in DeveloperInfo.all()])
+
+    # It must be a POST
+    try:
+        return DeveloperInfo.from_dict(request.form).to_json()
+    except exc.IntegrityError, e:
+        return error(e.message)
 
 
 @app.route("/devs/<dev_id>", methods=['GET', 'PUT'])
