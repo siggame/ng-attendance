@@ -32,7 +32,12 @@ class DeveloperInfo(Base):
         return fmt.format(self.first_name, self.last_name, self.github_username)
 
     def to_dict(self):
-        return {c.name: c.type.python_type(getattr(self, c.name)) for c in self.__table__.columns}
+        fields = {c.name: c.type.python_type(getattr(self, c.name))
+                  for c in self.__table__.columns}
+
+        attendance = Attendance.latest_for(self)
+        fields['here'] = attendance.here if attendance else False
+        return fields
 
     def to_json(self):
         return json.dumps(self.to_dict())
