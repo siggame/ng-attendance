@@ -56,3 +56,6 @@ target/
 # Data files
 *.csv
 *.sqlite
+
+# Emacs temp files
+*~
