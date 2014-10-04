@@ -1,12 +1,13 @@
 <form novalidate class="form-inline" role="form">
   <div class="form-group">
     <label class="sr-only" for="name">Email address</label>
-    <input type="text" class="form-control" id="name" placeholder="Name" ng-model="search">
+    <input type="text" class="form-control" id="name" placeholder="Search for Name" ng-model="search">
   </div>
 </form>
 
+<br>
 
-<table class="table table-striped">
+<table class="table">
   <tr ng-repeat="dev in dev_list.devs | filter:search">
     <td ng-class="dev.here ? 'success' : 'danger'">
       <a ui-sref="dev_detail({id: dev.id})">{{ dev.first_name }} {{ dev.last_name }}</a>

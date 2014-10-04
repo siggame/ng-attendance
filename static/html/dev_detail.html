@@ -65,6 +65,7 @@
         <div ng-hide="dev_detail.presence.here">Mark me present</div>
         <div ng-show="dev_detail.presence.here">Mark me absent</div>
       </button>
+      <br><br>
       <button ng-class="{'btn-danger': infoForm.$dirty}" ng-click="dev_detail.update(infoForm, dev_detail.dev)" class="btn btn-default">Save</button>
       <button ng-click="dev_detail.back(infoForm)" class="btn btn-default">Done!</button>
     </div>
