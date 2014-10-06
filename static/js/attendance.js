@@ -5,14 +5,20 @@
     $urlRouterProvider.otherwise("/");
 
     $stateProvider
-      .state('dev_list', {
+      .state('home', {
         url: "/",
+        templateUrl: '/static/html/home.html',
+        controller: 'HomeController',
+        controllerAs: 'home'
+      })
+      .state('dev_list', {
+        url: "/devs/",
         templateUrl: '/static/html/dev_list.html',
         controller: 'DevListController',
         controllerAs: 'dev_list'
       })
       .state('dev_detail', {
-        url: '/:id',
+        url: '/devs/:id',
         templateUrl: '/static/html/dev_detail.html',
         controller: 'DevDetailController',
         controllerAs: 'dev_detail'
@@ -37,6 +43,10 @@
 
   app.factory("Team", function($resource) {
     return $resource("/teams");
+  });
+
+  app.controller('HomeController', function(Developer){
+    controller = this;
   });
 
   app.controller('DevListController', function(Developer){
