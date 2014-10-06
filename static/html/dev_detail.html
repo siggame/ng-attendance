@@ -61,13 +61,13 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button ng-class="dev_detail.presence.here ? 'btn-danger' : 'btn-success'" ng-click="dev_detail.here(dev_detail.presence)" class="btn">
+      <button ng-class="dev_detail.presence.here ? 'btn-danger' : 'btn-success'" ng-click="dev_detail.here(dev_detail.presence)" class="btn" style="width:100%">
         <div ng-hide="dev_detail.presence.here">Mark me present</div>
         <div ng-show="dev_detail.presence.here">Mark me absent</div>
       </button>
       <br><br>
-      <button ng-class="{'btn-danger': infoForm.$dirty}" ng-click="dev_detail.update(infoForm, dev_detail.dev)" class="btn btn-default">Save</button>
-      <button ng-click="dev_detail.back(infoForm)" class="btn btn-default">Done!</button>
+      <button ng-class="{'btn-danger': infoForm.$dirty}" ng-click="dev_detail.update(infoForm, dev_detail.dev)" class="btn btn-default" style="width:48%">Save</button>
+      <button ng-click="dev_detail.back(infoForm)" class="btn btn-default pull-right" style="width:48%">Done!</button>
     </div>
   </div>
 </form>
