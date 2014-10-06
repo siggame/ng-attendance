@@ -2,6 +2,7 @@ from database import DeveloperInfo
 
 import csv
 import re
+import StringIO
 
 
 def get_names(full_name):
@@ -35,3 +36,23 @@ def load_roster(db_session, csv_file):
 
         db_session.add(d)
         db_session.commit()
+
+
+def dump_roster(db_session):
+    devs = db_session.query(DeveloperInfo).all()
+    fields = [col.name for col in DeveloperInfo.__table__.columns]
+    fields.append('here')
+
+    csv_strfile = StringIO.StringIO()
+    writer = csv.DictWriter(csv_strfile, fieldnames=fields)
+    writer.writerow({f: f for f in fields})
+    for dev in devs:
+        writer.writerow(dev.to_dict())
+
+    print csv_strfile.getvalue()
+
+
+
+if __name__ == '__main__':
+    from database import db_session
+    dump_roster(db_session)
