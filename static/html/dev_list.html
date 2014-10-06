@@ -10,7 +10,9 @@
 <table class="table">
   <tr ng-repeat="dev in dev_list.devs | filter:search">
     <td ng-class="dev.here ? 'success' : 'danger'">
-      <a ui-sref="dev_detail({id: dev.id})">{{ dev.first_name }} {{ dev.last_name }}</a>
+      <a ui-sref="dev_detail({id: dev.id})">
+      <h4>{{ dev.first_name }} {{ dev.last_name }}</h4>
+      </a>
     </td>
   </tr>
 </table>
