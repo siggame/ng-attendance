@@ -107,7 +107,7 @@
       if (form.$dirty) {
         alert("Whoah. Save your changes first.");
       } else {
-        $state.go('dev_list');
+        $state.go('home');
       }
     }
   });
