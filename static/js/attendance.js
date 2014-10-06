@@ -31,6 +31,13 @@
       });
   });
 
+  app.filter( 'default', function( $filter ) {
+    return function( input, defaultValue ) {
+      if ( !input ) return defaultValue;
+      return input;
+    };
+  });
+
   app.factory("Developer", function($resource) {
     return $resource("/devs/:id", { id: '@id' }, {
       update: {

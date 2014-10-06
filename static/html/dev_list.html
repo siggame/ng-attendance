@@ -11,7 +11,7 @@
   <tr ng-repeat="dev in dev_list.devs | filter:search | orderBy:'last_name'">
     <td ng-class="dev.here ? 'success' : 'danger'">
       <a ui-sref="dev_detail({id: dev.id})">
-      <h4>{{ dev.first_name }} {{ dev.last_name }}</h4>
+      <h4>{{ dev.preferred_name | default:dev.first_name }} {{ dev.last_name }}</h4>
       </a>
     </td>
   </tr>
