@@ -42,7 +42,10 @@ def dev_list():
 
     # It must be a POST
     try:
-        return DeveloperInfo.from_dict(request.form).to_json()
+        data = request.get_json() or request.values
+        dev = DeveloperInfo.from_dict(data)
+        Attendance.mark(dev, here=True).to_json()
+        return dev.to_json()
     except exc.IntegrityError, e:
         return error(e.message)
 
