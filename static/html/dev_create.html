@@ -1,0 +1,60 @@
+<form novalidate name="devForm" class="form-horizontal" role="form">
+
+  <div class="form-group">
+    <label for="first_name" class="col-sm-2 control-label">First Name</label>
+    <div class="col-sm-10" ng-class="{ 'has-error': devForm.first_name.$invalid }">
+      <input name="first_name" type="text" class="form-control" id="first_name" ng-model="dev_create.dev.first_name" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="preferred_name" class="col-sm-2 control-label">Preferred Name</label>
+    <div class="col-sm-10">
+      <input name="preferred_name" type="text" class="form-control" id="preferred_name" ng-model="dev_create.dev.preferred_name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="last_name" class="col-sm-2 control-label">Last Name</label>
+    <div class="col-sm-10" ng-class="{ 'has-error': devForm.last_name.$invalid }">
+      <input name="last_name" type="text" class="form-control" id="last_name" ng-model="dev_create.dev.last_name" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10" ng-class="{ 'has-error': devForm.email.$invalid }">
+      <input name="email" type="email" class="form-control" id="email" ng-model="dev_create.dev.email" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="github_username" class="col-sm-2 control-label">GitHub</label>
+    <div class="col-sm-10">
+      <input name="github_username" type="text" class="form-control" id="github_username" ng-model="dev_create.dev.github_username">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="team" class="col-sm-2 control-label">Team</label>
+    <div class="col-sm-10">
+      <select ng-model="dev_create.dev.team" ng-options="team for team in dev_create.teams" class="form-control">
+        <option value="">None</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="planning_to_compete" class="col-sm-2 control-label">Planning to Compete</label>
+    <div class="col-sm-10">
+      <input type="checkbox" id="team" ng-model="dev_create.dev.planning_to_compete">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button ng-class="{'btn-danger': devForm.$dirty && devForm.$invalid, 'btn-success': devForm.$valid }" ng-click="dev_create.save(devForm, dev_create.dev)" class="btn btn-default">Save</button>
+      <button ui-sref="home" class="btn btn-default">Cancel</button>
+    </div>
+  </div>
+</form>
