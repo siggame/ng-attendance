@@ -31,7 +31,7 @@ def index():
 
 @app.route("/teams", methods=['GET'])
 def teams_list():
-    teams = ['Arena', 'Server/Client', 'Testing', 'Visualizer', 'Web']
+    teams = ['Arena', 'Server/Client', 'Testing', 'Visualizer', 'WebServer']
     return json.dumps(teams)
 
 
