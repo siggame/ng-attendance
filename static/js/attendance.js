@@ -1,5 +1,5 @@
 (function(){
-  var app = angular.module('ng-attendance', ['ngResource', 'ui.router']);
+  var app = angular.module('ng-attendance', ['ngResource', 'ui.router', 'ngAnimate']);
 
   app.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/");
